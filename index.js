@@ -28,6 +28,17 @@ app.use(
     },
   }))
 );
+// app.use(
+//   "/graphql/v1/tasks",
+//   graphqlHTTP((req) => ({
+//     schema: Schema,
+//     graphiql: process.env.NODE_ENV === "development",
+//     context: {
+//       token: req.headers["x-access-token"],
+//       ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+//     },
+//   }))
+// );
 
 // If route not found
 app.use(async (req, res, next) => {

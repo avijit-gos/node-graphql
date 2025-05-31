@@ -1,6 +1,11 @@
 /** @format */
 
-const { GraphQLList, GraphQLString, GraphQLInt } = require("graphql");
+const {
+  GraphQLList,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+} = require("graphql");
 const UserType = require("../types/user.types");
 const createError = require("http-errors");
 const User = require("../../models/user.model");
@@ -39,7 +44,7 @@ module.exports = {
       const { token, ip } = context;
       try {
         const user = await validateMiddleware(token);
-        const data = await getUserById(user);
+        const data = await getUserById(user._id);
         // console.log(data);
         logger.info({ message: "Success in getting a specific users", ip });
         return data;
@@ -47,6 +52,13 @@ module.exports = {
         logger.error({ message: "Error in getting all users", ip });
         throw createError.BadRequest(error.message);
       }
+    },
+  },
+
+  findUserById: {
+    type: UserType,
+    args: {
+      id: { type: GraphQLID },
     },
   },
 };

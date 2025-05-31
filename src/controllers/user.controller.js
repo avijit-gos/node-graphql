@@ -138,9 +138,9 @@ const getAllUsers = async (args) => {
   }
 };
 
-const getUserById = async (user) => {
+const getUserById = async (userID) => {
   try {
-    const data = await User.findById(user._id).select("-password");
+    const data = await User.findById(userID).select("-password");
     if (!data) throw createError.BadRequest("No user found");
     if (data && data.status !== "active")
       throw createError.BadRequest("User profile is not active");
